@@ -42,5 +42,8 @@ sudo apt-get -y install smplayer smplayer-themes
 echo "In chroot: install nv drivers..."
 sudo apt-get install -y nvidia-driver-430 libvulkan1:i386
 
+echo "In chroot: install winehq-staging..."
+sudo apt-get install -y --install-recommends winehq-staging
+
 echo "In chroot: apt cleanup..."
 sudo apt-get -y autoremove && sudo apt-get autoclean
