@@ -9,7 +9,7 @@ sudo bash -c "echo net.ipv6.conf.all.disable_ipv6=1 >> /etc/sysctl.conf"
 sudo bash -c "echo net.ipv6.conf.default.disable_ipv6=1 >> /etc/sysctl.conf"
 
 echo "In chroot: removing preinstalled apps & games..."
-sudo apt-get autoremove --purge -f -q -y rhythmbox* remmina* totem* transmission* aisleriot* gnome-mahjongg* gnome-mines* gnome-sudoku* simple-scan* gnome-todo* baobab* deja-dup* gnome-calendar* gedit* example-content* usb-creator-gtk* thunderbird* hunspell* hyphen* mythes* cheese cheese-common
+sudo apt-get autoremove --purge -f -q -y rhythmbox* totem* transmission* aisleriot* gnome-mahjongg* gnome-mines* gnome-sudoku* simple-scan* gnome-todo* baobab* deja-dup* gnome-calendar* gedit* example-content* usb-creator-gtk* thunderbird* hunspell* hyphen* mythes*
 
 echo "In chroot: adding smplayer ppa..."
 sudo -E add-apt-repository -y ppa:rvm/smplayer
