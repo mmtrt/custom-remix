@@ -47,3 +47,6 @@ sudo apt-get install -y --install-recommends winehq-staging
 
 echo "In chroot: apt cleanup..."
 sudo apt-get -y autoremove && sudo apt-get autoclean
+
+echo "In chroot: applying tweaks..."
+sudo gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ launcher-minimize-window true
