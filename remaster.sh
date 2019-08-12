@@ -53,6 +53,12 @@ sudo apt-get autoremove --purge -f -q -y snapd
 echo "In chroot: Run customization script..."
 chmod +x customize.sh && ./customize.sh && rm ./customize.sh
 
+echo "In chroot: rebuilding font cache..."
+sudo fc-cache -r -f -s -v
+
+echo "In chroot: rebuilding mime cache..."
+sudo update-mime-database -V /usr/share/mime
+
 echo "In chroot: Delete temporary files..."
 ( cd /etc ; sudo rm resolv.conf ; sudo ln -s ../run/systemd/resolve/stub-resolv.conf resolv.conf )
 
