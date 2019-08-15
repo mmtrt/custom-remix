@@ -70,7 +70,7 @@ sudo rm -rf /var/cache/apparmor/*
 sudo rm /var/cache/debconf/{config.dat-old,templates.dat-old}
 sudo rm /var/cache/apt/*.bin
 sudo rm /var/cache/apt/archives/*.deb
-sudo rm /var/lib/dpkg/{diversions-old,status-old}
+sudo rm /var/lib/dpkg/status-old
 sudo rm /etc/hosts && sudo touch /etc/hosts
 exit
 EOF
