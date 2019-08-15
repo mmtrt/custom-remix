@@ -88,7 +88,7 @@ ls edit/boot
 
 echo "Copying initramfs to casper..."
 sudo rm extract-cd/casper/initrd
-sudo cp edit/boot/initrd.img-$(ls edit/lib/modules) extract-cd/casper/initrd
+sudo cp edit/boot/initrd.img-$(ls edit/lib/modules | tail -1) extract-cd/casper/initrd
 sudo rm edit/boot/initrd.img-*
 
 echo "Repacking..."
