@@ -20,12 +20,11 @@ sudo -E add-apt-repository -y ppa:jonathonf/ffmpeg-4
 echo "In chroot: adding mpv ppa..."
 sudo -E add-apt-repository -y ppa:mc3man/mpv-tests
 
-echo "In chroot: adding cybermax's ppas..."
-sudo -E add-apt-repository -y ppa:cybermax-dexter/vulkan-backports
+echo "In chroot: adding cybermax ppa..."
 sudo -E add-apt-repository -y ppa:cybermax-dexter/sdl2-backport
 
-echo "In chroot: adding nvidia drivers ppa..."
-sudo -E add-apt-repository -y ppa:graphics-drivers/ppa
+echo "In chroot: adding own ppa..."
+sudo -E add-apt-repository -y ppa:mmtrt/testing
 
 echo "In chroot: installing winehq ppa + winehq..."
 wget -nc https://dl.winehq.org/wine-builds/winehq.key
@@ -40,7 +39,7 @@ echo "In chroot: apt smplayer..."
 sudo apt-get -y install smplayer smplayer-themes
 
 echo "In chroot: install nv drivers..."
-sudo apt-get install -y nvidia-driver-430 libvulkan1:i386
+sudo apt-get install -y nvidia-driver-418 libvulkan1:i386
 
 echo "In chroot: install winehq-staging..."
 sudo apt-get install -y --install-recommends winehq-staging
