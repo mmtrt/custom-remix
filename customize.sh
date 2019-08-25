@@ -5,8 +5,7 @@
 # echo "# Remastered" >> /etc/os-release # Don't do this, it disturbs add-apt-repository
 
 echo "In chroot: disabling apt ipv6..."
-sudo bash -c "echo net.ipv6.conf.all.disable_ipv6=1 >> /etc/sysctl.conf"
-sudo bash -c "echo net.ipv6.conf.default.disable_ipv6=1 >> /etc/sysctl.conf"
+sudo bash -c "echo 'Acquire::ForceIPv4 \"true\";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4"
 
 echo "In chroot: removing preinstalled apps & games..."
 sudo apt-get autoremove --purge -f -q -y rhythmbox* remmina* totem* transmission* aisleriot* gnome-mahjongg* gnome-mines* gnome-sudoku* simple-scan* gnome-todo* baobab* deja-dup* gnome-calendar* example-content* usb-creator-gtk* thunderbird* mozc* geary* synaptic* libreoffice* gnome-logs gnome-system-log
