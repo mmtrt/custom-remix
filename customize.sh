@@ -8,7 +8,7 @@ echo "In chroot: disabling apt ipv6..."
 sudo bash -c "echo 'Acquire::ForceIPv4 \"true\";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4"
 
 echo "In chroot: removing preinstalled apps & games..."
-sudo apt-get autoremove --purge -f -q -y rhythmbox* remmina* totem* transmission* aisleriot* gnome-mahjongg* gnome-mines* gnome-sudoku* simple-scan* gnome-todo* baobab* deja-dup* gnome-calendar* example-content* usb-creator-gtk* thunderbird* mozc* geary* synaptic* libreoffice* gnome-logs gnome-system-log
+sudo apt-get autoremove --purge -f -q -y rhythmbox* remmina* totem* transmission* aisleriot* gnome-mahjongg* gnome-mines* gnome-sudoku* simple-scan* gnome-todo* baobab* deja-dup* gnome-calendar* example-content* usb-creator-gtk* thunderbird* mozc* geary* synaptic* gnome-logs gnome-system-log
 
 echo "In chroot: adding smplayer ppa..."
 sudo -E add-apt-repository -y ppa:rvm/smplayer
