@@ -56,13 +56,12 @@ echo "In chroot: Delete temporary files..."
 echo "In chroot: Clearing cache files..."
 rm -rf /tmp/*
 sudo rm /etc/apt/sources.list.save
-sudo rm /etc/{group-,gshadow-,passwd-,shadow-}
 sudo rm -rf /var/cache/apparmor/*
 sudo rm /var/cache/app-info/cache/en_US.cache
 sudo rm /var/cache/debconf/{config.dat-old,templates.dat-old}
 sudo rm /var/cache/apt/*.bin
 sudo rm /var/cache/apt/archives/*.deb
-sudo rm /var/lib/dpkg/{diversions-old,status-old}
+sudo rm /var/lib/dpkg/status-old
 sudo rm /etc/hosts && sudo touch /etc/hosts
 exit
 EOF
