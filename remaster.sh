@@ -80,6 +80,12 @@ sudo umount -lfr edit/run
 ls edit/lib/modules
 ls edit/boot
 
+echo "Copying initramfs to casper..."
+sudo rm extract-cd/casper/{initrd,vmlinuz}
+sudo cp edit/boot/initrd.img-*xanmod* extract-cd/casper/initrd
+sudo cp edit/boot/vmlinuz-*xanmod* extract-cd/casper/vmlinuz
+sudo rm edit/boot/{initrd.img-*,vmlinuz-*}
+
 echo "Repacking..."
 
 sudo chmod +w extract-cd/casper/filesystem.manifest
