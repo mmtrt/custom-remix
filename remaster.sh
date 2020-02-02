@@ -51,7 +51,7 @@ echo "In chroot: Run customization script..."
 chmod +x customize.sh && ./customize.sh && rm ./customize.sh
 
 echo "In chroot: remove old kernel remains..."
-sudo apt-get purge -y  linux-headers-$(ls edit/lib/modules | head -1 | sed 's|-g.*||') linux-headers-$(ls edit/lib/modules | head -1) linux-image-$(ls edit/lib/modules | head -1) linux-modules-$(ls edit/lib/modules | head -1) linux-modules-extra-$(ls edit/lib/modules | head -1) linux-generic linux-headers-generic linux-image-generic
+sudo apt-get purge -y linux-headers-$(ls edit/lib/modules | head -1 | sed 's|-g.*||') linux-*-headers-$(ls edit/lib/modules | head -1 | sed 's|-g.*||') linux-headers-$(ls edit/lib/modules | head -1) linux-image-$(ls edit/lib/modules | head -1) linux-modules-$(ls edit/lib/modules | head -1) linux-modules-extra-$(ls edit/lib/modules | head -1) linux-generic linux-headers-generic linux-image-generic
 
 echo "In chroot: Delete temporary files..."
 ( cd /etc ; sudo rm resolv.conf ; sudo ln -s ../run/systemd/resolve/stub-resolv.conf resolv.conf )
