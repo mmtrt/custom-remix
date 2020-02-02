@@ -3,8 +3,8 @@
 sudo apt-get update && sudo apt-get -y install isolinux genisoimage squashfs-tools xorriso zsync
 
 echo "Download the ISO to be customized..."
-URL=https://github.com/mmtrt/unity-remix/releases/download/continuous/unity-remix-18.04.3-desktop-amd64.iso
-wget -q "$URL"
+URL=https://github.com/mmtrt/unity-remix/releases/download/continuous/unity-remix-20.04-desktop-amd64.iso
+wget "$URL" --progress=dot -e dotbytes=100M
 
 mv *.iso original.iso
 
@@ -47,17 +47,8 @@ sudo dpkg --add-architecture i386
 echo "In chroot: apt commands..."
 sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade && sudo apt-get -y autoremove && sudo apt-get autoclean
 
-echo "In chroot: remove snapd..."
-sudo apt-get autoremove --purge -f -q -y snapd
-
 echo "In chroot: Run customization script..."
 chmod +x customize.sh && ./customize.sh && rm ./customize.sh
-
-echo "In chroot: rebuilding font cache..."
-sudo fc-cache -r -f -s -v
-
-echo "In chroot: rebuilding mime cache..."
-sudo update-mime-database -V /usr/share/mime
 
 echo "In chroot: Delete temporary files..."
 ( cd /etc ; sudo rm resolv.conf ; sudo ln -s ../run/systemd/resolve/stub-resolv.conf resolv.conf )
@@ -67,10 +58,11 @@ rm -rf /tmp/*
 sudo rm /etc/apt/sources.list.save
 sudo rm /etc/{group-,gshadow-,passwd-,shadow-}
 sudo rm -rf /var/cache/apparmor/*
+sudo rm /var/cache/app-info/cache/en_US.cache
 sudo rm /var/cache/debconf/{config.dat-old,templates.dat-old}
 sudo rm /var/cache/apt/*.bin
 sudo rm /var/cache/apt/archives/*.deb
-sudo rm /var/lib/dpkg/status-old
+sudo rm /var/lib/dpkg/{diversions-old,status-old}
 sudo rm /etc/hosts && sudo touch /etc/hosts
 exit
 EOF
@@ -85,11 +77,6 @@ sudo umount -lfr edit/run
 
 ls edit/lib/modules
 ls edit/boot
-
-echo "Copying initramfs to casper..."
-sudo rm extract-cd/casper/initrd
-sudo cp edit/boot/initrd.img-$(ls edit/lib/modules | tail -1) extract-cd/casper/initrd
-sudo rm edit/boot/initrd.img-*
 
 echo "Repacking..."
 
@@ -111,7 +98,8 @@ HERE
 
 cd extract-cd 	
 sudo xorriso -as mkisofs \
-	-V "Unity Remix 18.04.3 LTS amd64" \
+	-V "Unity Remix 20.04 LTS amd64" \
+	-J -joliet-long \
 	-isohybrid-mbr /usr/lib/ISOLINUX/isohdpfx.bin \
 	-c isolinux/boot.cat \
 	-b isolinux/isolinux.bin \
@@ -122,7 +110,7 @@ sudo xorriso -as mkisofs \
 	-e boot/grub/efi.img \
 	-no-emul-boot \
 	-isohybrid-gpt-basdat \
-	-o ../unity-remix-18.04.3-desktop-amd64.iso \
+	-o ../unity-remix-20.04-desktop-amd64.iso \
        "../extract-cd"
 sudo chown -R $USER ../*iso
 
@@ -131,7 +119,7 @@ cd ..
 rm original.iso
 
 # Write update information for use by AppImageUpdate; https://github.com/AppImage/AppImageSpec/blob/master/draft.md#update-information
-echo "gh-releases-zsync|mmtrt|custom-remix|latest|unity-*amd64.iso.zsync" | dd of="unity-remix-18.04.3-desktop-amd64.iso" bs=1 seek=33651 count=512 conv=notrunc
+echo "gh-releases-zsync|mmtrt|custom-remix|latest|unity-*amd64.iso.zsync" | dd of="unity-remix-20.04-desktop-amd64.iso" bs=1 seek=33651 count=512 conv=notrunc
 
 # Write zsync file
 zsyncmake *.iso
