@@ -16,11 +16,17 @@ sudo -E add-apt-repository -y ppa:rvm/smplayer
 echo "In chroot: adding mpv ppa..."
 sudo -E add-apt-repository -y ppa:mc3man/mpv-tests
 
+echo "In chroot: adding xanmod ppa..."
+echo 'deb http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-kernel.list && wget -qO - https://dl.xanmod.org/gpg.key | sudo apt-key add -
+
 echo "In chroot: apt upgrade..."
 sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade
 
 echo "In chroot: apt smplayer..."
 sudo apt-get -y install smplayer smplayer-themes
+
+echo "In chroot: apt linux-xanmod..."
+sudo apt-get -y install linux-xanmod
 
 echo "In chroot: apt cleanup..."
 sudo apt-get -y autoremove && sudo apt-get autoclean
